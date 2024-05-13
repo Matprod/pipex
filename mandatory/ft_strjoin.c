@@ -6,7 +6,7 @@
 /*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 06:23:40 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/13 06:40:24 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/13 07:13:07 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@ char	*ft_strjoin(char *s1, char const *s2)
 		i++;
 	}
 	*(dest + i) = '\0';
-	//free(s1);
 	return (dest);
 }

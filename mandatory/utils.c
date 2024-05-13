@@ -6,7 +6,7 @@
 /*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:57:26 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/13 06:37:31 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/13 07:11:58 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	return (NULL);
 }
 
-void free_array(char **array)
+void	free_array(char **array)
 {
 	int	i;
 
@@ -45,6 +45,7 @@ void free_array(char **array)
 		free(array[i]);
 	free(array);
 }
+
 char	*find_path(char *cmd, char **envp)
 {
 	char	**paths;
@@ -71,13 +72,11 @@ char	*find_path(char *cmd, char **envp)
 	return (0);
 }
 
-
 void	error(void)
 {
 	perror("Error");
 	exit(EXIT_FAILURE);
 }
-
 
 void	execute(char *argv, char **envp)
 {
@@ -86,7 +85,7 @@ void	execute(char *argv, char **envp)
 
 	cmd = ft_split(argv, ' ');
 	path = find_path(cmd[0], envp);
-	if (!path)	
+	if (!path)
 	{
 		free_array(cmd);
 		error();
@@ -94,4 +93,3 @@ void	execute(char *argv, char **envp)
 	if (execve(path, cmd, envp) == -1)
 		error();
 }
-

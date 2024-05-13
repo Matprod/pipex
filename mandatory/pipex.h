@@ -6,7 +6,7 @@
 /*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:50:47 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/13 06:38:58 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/13 07:12:35 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-
 /* Mandatory functions */
 void	error(void);
 char	*find_path(char *cmd, char **envp);
@@ -29,7 +28,5 @@ char	*ft_strjoin(char *s1, char const *s2);
 void	execute(char *argv, char **envp);
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);
-
-
 
 #endif

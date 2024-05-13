@@ -6,12 +6,11 @@
 /*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:49 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/13 07:04:41 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/13 07:12:20 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
 
 void	child_process(char **argv, char **envp, int *fd)
 {
@@ -39,7 +38,6 @@ void	parent_process(char **argv, char **envp, int *fd)
 	execute(argv[3], envp);
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	int		fd[2];
@@ -47,10 +45,10 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 	{
-		write(2,"Error: Bad arguments\n", 21);
+		write(2, "Error: Bad arguments\n", 21);
 	}
 	else
-    {
+	{
 		if (pipe(fd) == -1)
 			error();
 		pid1 = fork();
@@ -60,7 +58,6 @@ int	main(int argc, char **argv, char **envp)
 			child_process(argv, envp, fd);
 		waitpid(pid1, NULL, 0);
 		parent_process(argv, envp, fd);
-
-    }
+	}
 	return (0);
 }
