@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
+/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:49 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/13 07:12:20 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/16 14:15:13 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ void	parent_process(char **argv, char **envp, int *fd)
 int	main(int argc, char **argv, char **envp)
 {
 	int		fd[2];
-	pid_t	pid1;
+	pid_t	pid;
 
 	if (argc != 5)
 	{
-		write(2, "Error: Bad arguments\n", 21);
+		return (write(2, "Error: Bad arguments\n", 21));
 	}
 	else
 	{
 		if (pipe(fd) == -1)
 			error();
-		pid1 = fork();
-		if (pid1 == -1)
+		pid = fork();
+		if (pid == -1)
 			error();
-		if (pid1 == 0)
+		if (pid == 0)
 			child_process(argv, envp, fd);
-		waitpid(pid1, NULL, 0);
+		waitpid(pid, NULL, WNOHANG);
 		parent_process(argv, envp, fd);
 	}
 	return (0);

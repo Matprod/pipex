@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:57:26 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/16 16:02:45 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/13 07:11:58 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,9 @@ void	execute(char *argv, char **envp)
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		free(path);
 		free_array(cmd);
 		error();
 	}
 	if (execve(path, cmd, envp) == -1)
-	{
-		free(path);
-		free_array(cmd);
 		error();
-	}
 }
