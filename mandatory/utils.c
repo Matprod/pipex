@@ -6,7 +6,7 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:57:26 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/22 16:04:50 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/22 16:11:45 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char	*find_path(char *cmd, char **envp)
 	free_array(paths);
 	return (0);
 }
-
 
 void	execute(char *argv, char **envp)
 {
