@@ -6,7 +6,7 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:57:26 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/16 16:02:45 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/22 16:04:50 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		i++;
 	}
 	return (NULL);
+}
+
+void	error(void)
+{
+	perror("Error");
+	exit(EXIT_FAILURE);
 }
 
 void	free_array(char **array)
@@ -72,11 +78,6 @@ char	*find_path(char *cmd, char **envp)
 	return (0);
 }
 
-void	error(void)
-{
-	perror("Error");
-	exit(EXIT_FAILURE);
-}
 
 void	execute(char *argv, char **envp)
 {

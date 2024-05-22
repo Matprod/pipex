@@ -6,7 +6,7 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:49 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/16 14:15:13 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/22 16:03:19 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 			error();
 		if (pid == 0)
 			child_process(argv, envp, fd);
-		waitpid(pid, NULL, WNOHANG);
+		waitpid(pid, NULL, 1);
 		parent_process(argv, envp, fd);
 	}
 	return (0);

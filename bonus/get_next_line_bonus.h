@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 05:50:47 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/22 15:51:23 by mvoisin          ###   ########.fr       */
+/*   Created: 2023/12/04 19:17:13 by Matprod           #+#    #+#             */
+/*   Updated: 2024/05/22 14:07:16 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-# include <stdlib.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+
+# endif
+
 # include <unistd.h>
-# include <string.h>
-# include <stdio.h>
-# include <sys/wait.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <fcntl.h>
-# include "get_next_line_bonus.h"
 
-/* BONUS functions */
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	error(void);
-char	*find_path(char *cmd, char **envp);
-char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
-void	execute(char *argv, char **envp);
-size_t	ft_strlen(char *s);
-char	**ft_split(char const *s, char c);
+
+char	*read_and_stock(int fd, char *stack);
+
+size_t	ft_strlengnl(const char *s);
+
+char	*ft_strjoingnl(char *s1, char const *s2);
+
+int		ft_strchr(const char *s, int c);
+
+char	*ft_strdup(const char *s);
 
 #endif

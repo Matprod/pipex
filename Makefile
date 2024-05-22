@@ -10,6 +10,9 @@ SRCS_BONUS 	= bonus/pipex_bonus.c\
 			bonus/utils.c\
 			bonus/ft_split.c\
 			bonus/ft_strjoin.c\
+			bonus/utils2.c\
+			bonus/get_next_line_bonus.c\
+			bonus/get_next_line_utils_bonus.c\
 			
 OBJS 		= ${SRCS:.c=.o}
 OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
@@ -29,7 +32,7 @@ ${NAME}: ${OBJS}
 ${NAME_BONUS}: ${OBJS_BONUS}
 	@$(CC) ${OBJS_BONUS} -o ${NAME_BONUS}
 
-all: ${NAME}
+all: ${NAME} 
 
 bonus: ${NAME_BONUS}
 
