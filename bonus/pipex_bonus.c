@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:49 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/22 15:52:17 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/23 20:52:33 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	first_process(char *av[], char *envp[], int filein)
+{
+	pid_t pid1;
+	int		pipe_fd[2];
+	
+	if (pipe(pipe_fd) == -1)
+		error("pipe");
+	pid1 = fork();
+	if (pid1 == -1)
+		error("fork");
+	if (pid1 == 0)
+	{
+		if (filein == -1)
+		{
+			close(pipe_fd[0]);
+			close(pipe_fd[1]);
+			error("infile");
+		}
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		execute(av[2], envp);
+	}
+	else
+	{
+		if (waitpid(pid1, NULL, 0) == -1)
+			error("waitpid function");
+	}
+}
 
 void	child_process(char *argv, char **envp)
 {
@@ -18,10 +46,10 @@ void	child_process(char *argv, char **envp)
 	int		pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
-		error();
+		error("Error : pipe");
 	pid = fork();
 	if (pid == -1)
-		error();
+		error("Error : fork");
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);

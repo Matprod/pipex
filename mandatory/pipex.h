@@ -6,7 +6,7 @@
 /*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:50:47 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/13 07:12:35 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/23 20:27:37 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@
 # include <fcntl.h>
 
 /* Mandatory functions */
-void	error(void);
+void	error(char *str);
 char	*find_path(char *cmd, char **envp);
 char	*ft_strjoin(char *s1, char const *s2);
-//int		get_next_line(char **line);
 void	execute(char *argv, char **envp);
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);

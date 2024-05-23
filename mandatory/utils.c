@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:57:26 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/22 16:11:45 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/23 19:48:42 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	return (NULL);
 }
 
-void	error(void)
-{
-	perror("Error");
-	exit(EXIT_FAILURE);
-}
-
 void	free_array(char **array)
 {
 	int	i;
@@ -60,7 +54,7 @@ char	*find_path(char *cmd, char **envp)
 	char	*part_path;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+	while (envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	paths = ft_split(envp[i] + 5, ':');
 	i = 0;
@@ -78,6 +72,12 @@ char	*find_path(char *cmd, char **envp)
 	return (0);
 }
 
+void	error(void)
+{
+	perror("Error");
+	exit(EXIT_FAILURE);
+}
+
 void	execute(char *argv, char **envp)
 {
 	char	**cmd;
@@ -87,14 +87,9 @@ void	execute(char *argv, char **envp)
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		free(path);
 		free_array(cmd);
 		error();
 	}
 	if (execve(path, cmd, envp) == -1)
-	{
-		free(path);
-		free_array(cmd);
 		error();
-	}
 }

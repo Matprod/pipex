@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:50:47 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/22 15:51:23 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/23 20:27:22 by Matprod          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 /* BONUS functions */
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	error(void);
+void	error(char *str);
 char	*find_path(char *cmd, char **envp);
 char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
