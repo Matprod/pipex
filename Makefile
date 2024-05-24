@@ -8,6 +8,8 @@ SRCS 	= mandatory/pipex.c\
 
 SRCS_BONUS 	= bonus/pipex_bonus.c\
 			bonus/utils.c\
+			bonus/files_gestion.c\
+			bonus/heredoc.c\
 			bonus/ft_split.c\
 			bonus/ft_strjoin.c\
 			bonus/utils2.c\
