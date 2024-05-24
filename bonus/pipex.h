@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
+/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:50:47 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/23 20:27:22 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:18:47 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include "get_next_line_bonus.h"
+
+typedef struct s_pipex
+{
+	int filein;
+	int fileout;
+	int pipe[2];
+}	t_pipex;
 
 /* BONUS functions */
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

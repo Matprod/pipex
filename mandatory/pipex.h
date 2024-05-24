@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
+/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:50:47 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/23 20:27:37 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:26:50 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+
+typedef struct s_pipex
+{
+	int filein;
+	int fileout;
+	int pipe_fd[2];
+}	t_pipex;
 
 /* Mandatory functions */
 void	error(char *str);
