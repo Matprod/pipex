@@ -6,7 +6,7 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:49 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/25 13:49:36 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/25 16:21:11 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ void	second_process(char **argv, char **envp, t_pipex *file)
 	close(file->pipe_fd[1]);
 	execute(argv[3], envp);
 }
-void open_files(t_pipex *file, char **argv)
+
+void	open_files(t_pipex *file, char **argv)
 {
-	file->filein = open(argv[1], O_RDONLY); //check
+	file->filein = open(argv[1], O_RDONLY);
 	if (file->filein == -1)
 		error("Error : open filein");
-	file->fileout = open(argv[4],  O_TRUNC | O_CREAT | O_RDWR, 0000644); //check
+	file->fileout = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	if (file->fileout == -1)
 		error("Error : open fileout");
 }
 
-void close_files(t_pipex *file, int i)
+void	close_files(t_pipex *file, int i)
 {
 	if (i == 0)
 	{
@@ -51,12 +52,12 @@ void close_files(t_pipex *file, int i)
 	}
 }
 
-int		main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	file;
-	pid_t 	pid1;
-	pid_t 	pid2;
-	
+	pid_t	pid1;
+	pid_t	pid2;
+
 	if (argc != 5)
 		return (write(2, "Error: Bad arguments\n", 21));
 	open_files(&file, argv);

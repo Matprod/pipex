@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Matprod <matprod42@gmail.com>              +#+  +:+       +#+        */
+/*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 05:57:26 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/23 20:54:10 by Matprod          ###   ########.fr       */
+/*   Updated: 2024/05/25 15:34:37 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*find_path(char *cmd, char **envp)
 	char	*part_path;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+	while (envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	paths = ft_split(envp[i] + 5, ':');
 	i = 0;
@@ -87,14 +87,14 @@ void	execute(char *argv, char **envp)
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		free_array(cmd);
 		free(path);
+		free_array(cmd);
 		error("Error : path");
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
-		free_array(cmd);
 		free(path);
+		free_array(cmd);
 		error("Error : execve");
 	}
 }
