@@ -6,7 +6,7 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:49 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/24 16:36:35 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/25 13:49:36 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int		main(int argc, char **argv, char **envp)
 	pid_t 	pid1;
 	pid_t 	pid2;
 	
-	if (!envp)
-		return (EXIT_FAILURE);
 	if (argc != 5)
 		return (write(2, "Error: Bad arguments\n", 21));
 	open_files(&file, argv);

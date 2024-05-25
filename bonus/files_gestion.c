@@ -6,7 +6,7 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:10:29 by mvoisin           #+#    #+#             */
-/*   Updated: 2024/05/24 18:15:22 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/25 13:38:14 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void open_files(t_pipex *file, char **argv)
 	if (file->fileout == -1)
 		error("Error : open fileout");
 }
-
+/*close_files: 0 = pipe | 1 = files | 2 = all*/
 void close_files(t_pipex *file, int i)
 {
 	if (i == 0)
@@ -31,6 +31,13 @@ void close_files(t_pipex *file, int i)
 	}
 	if (i == 1)
 	{
+		close(file->filein);
+		close(file->fileout);
+	}
+	if (i == 2)
+	{
+		close(file->pipe_fd[0]);
+		close(file->pipe_fd[1]);
 		close(file->filein);
 		close(file->fileout);
 	}

@@ -6,88 +6,101 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:23:49 by Matprod           #+#    #+#             */
-/*   Updated: 2024/05/24 19:47:03 by mvoisin          ###   ########.fr       */
+/*   Updated: 2024/05/25 13:44:32 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void first_process(char **argv, char **envp, t_pipex *file)
+void	child_exec(int i, int argc, char **argv, char **envp, t_pipex *pipex)
 {
-	if (pipe(file->pipe_fd) == -1)
-			error("Error : pipe");
-		file->pid = fork();
-	if (file->pid == -1)
-		error("Error : fork");
-	if (close(STDIN_FILENO) == -1)
+	if (i == 0 && pipex->is_here_doc == 0)
+		first_process(argv, envp, pipex);
+	else if (i == 0 && pipex->is_here_doc == 1)
+		here_doc(argv, pipex);
+	else if (i != 0 && i == (pipex->nb_cmd - 1))
+		last_process(argv[argc - 2], envp, pipex);
+	else
+		child_process(i, argv, envp, pipex);
+}
+void	first_exec_here_doc(char **argv, char **envp, t_pipex *pipex)
+{
+	if(dup2(pipex->pipe_fd[1], 1) == -1)
+		error("Error : dup2");
+	if (close((pipex->pipe_fd[0]) == -1))
 		error("Error : close");
-	dup2(file->pipe_fd[1], STDOUT_FILENO);
-	dup2(file->filein, STDIN_FILENO); //protect
-	close(file->pipe_fd[0]); //protect
 	execute(argv[2], envp);
 }
 
-void child_process(char *argv, char **envp, t_pipex *file)
+void	set_nb_cmds(int argc, char **argv, t_pipex *pipex)
 {
-	if (pipe(file->pipe_fd) == -1)
-		error("Error : pipe");
-	file->pid = fork();
-	if (file->pid == -1)
-		error("Error : fork");
-	dup2(file->pipe_fd[0], STDIN_FILENO); //protect
-	dup2(file->pipe_fd[1], STDOUT_FILENO); //protect
-	close(file->pipe_fd[1]); //protect
-	execute(argv, envp);
+	if (!ft_strncmp(argv[2], "here_doc", 8))
+		pipex->nb_cmd = argc - 4;
+	else
+		pipex->nb_cmd = argc - 3;
 }
-
-void last_process(char *argv, char **envp, t_pipex *file)
+void	parent_wait(t_pipex *pipex)
 {
-	if (pipe(file->pipe_fd) == -1)
-		error("Error : pipe");
-	file->pid = fork();
-	if (file->pid == -1)
-		error("Error : fork");
-	if (close(STDOUT_FILENO) == -1)
-		error("Error : close");
-	dup2(file->pipe_fd[0], STDIN_FILENO);
-	dup2(file->fileout, STDOUT_FILENO); //protect
-	close(file->pipe_fd[1]); //protect
-	execute(argv, envp);
+	int		i;
+
+	i = 0;
+	while (i < pipex->nb_cmd)
+	{
+		waitpid(pipex->pid, NULL, 0);
+		i++;
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	int			i;
-	t_pipex		file;
+	t_pipex		pipex;
 
+	i = 0;
+    pipex.pipe_fd[0] = 0;
+    pipex.pipe_fd[1] = 0;
+	pipex.filein = 0;
+	pipex.fileout = 0;
+	pipex.is_here_doc = 0;
+	pipex.pid = 0;
+	pipex.nb_cmd = 0;
+	open_files(&pipex, argv);
 	if (argc >= 5)
 	{
+		set_nb_cmds(argc, argv, &pipex);
 		if (ft_strncmp(argv[1], "here_doc", ft_strlen("here_doc")) == 0)
 		{
 			i = 3;
-			file.fileout = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
-			here_doc(argv, &file);
+			pipex.is_here_doc = 1;
+			pipex.fileout = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+			here_doc(argv, &pipex);
 		}
 		else
 		{
-			i = 3;
-			open_files(&file, argv);
-			first_process(argv, envp ,&file);
+			i = 0;
+			while (i < pipex.nb_cmd)
+			{
+				if (pipe(pipex.pipe_fd) == -1)
+					error("Error : pipe");;
+				pipex.pid = fork();
+				if (pipex.pid == -1)
+					error("Error : fork");
+				if (pipex.pid == 0)
+				{
+					child_exec(i, argc, argv, envp, &pipex);
+				}
+				else
+				{
+					waitpid(pipex.pid, NULL, 0);
+					close_files(&pipex,2);
+				}
+				i++;
+			}
+			//parent_wait(&pipex);
 		}
-		while (i < argc -2)
-		{
-			int pid = fork();
-			//printf("test\n");
-			if (pid == 0);
-				child_process(argv[i++], envp, &file);
-			waitpid(pid, NULL, 0);
-		}
-		last_process(argv[argc - 2], envp, &file);
-		i = 3;
-		close_files(&file, 0);
-		close_files(&file, 1);
 	}
 	return (0);
+
 }
 
 /*
